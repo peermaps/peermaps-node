@@ -12,8 +12,11 @@ usage: peermaps COMMAND ...
     URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
     BBOX is in west,south,east,north form.
 
-    -f FORMAT   - display results in FORMAT: ndjsonb64 (default), jsonb64, lp
+    -f FORMAT   - display results in FORMAT: base64 (default), lp
     --bbox=BBOX - list all features that intersect BBOX
+
+    The rows of output are in georender format:
+    https://github.com/peermaps/docs/blob/master/georender.md
 ```
 
 example usage:

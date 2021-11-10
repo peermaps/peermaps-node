@@ -19,6 +19,9 @@ if (argv.help || argv._[0] === 'help') {
         -f FORMAT   - display results in FORMAT: base64 (default), lp
         --bbox=BBOX - list all features that intersect BBOX
 
+        The rows of output are in georender format:
+        https://github.com/peermaps/docs/blob/master/georender.md
+
   `.trim().replace(/^ {4}/gm,'') + '\n')
 } else if (argv.version || argv._[0] === 'version') {
   console.log(require('./package.json').version)
