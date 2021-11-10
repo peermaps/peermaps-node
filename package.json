@@ -11,5 +11,9 @@
     "pump": "^3.0.0",
     "random-access-file": "^2.2.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/peermaps/peermaps-node.git"
+  },
   "license": "bsd"
 }
