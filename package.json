@@ -1,6 +1,6 @@
 {
   "name": "peermaps",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "peermaps node.js command-line tool",
   "dependencies": {
     "eyros": "^4.7.0",
