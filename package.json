@@ -2,6 +2,9 @@
   "name": "peermaps",
   "version": "3.0.1",
   "description": "peermaps node.js command-line tool",
+  "bin": {
+    "peermaps": "cmd.js"
+  },
   "dependencies": {
     "eyros": "^4.7.0",
     "hyperdrive": "^10.21.0",
