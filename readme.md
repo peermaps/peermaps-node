@@ -17,6 +17,13 @@ usage: peermaps COMMAND ...
 
     The rows of output are in georender format:
     https://github.com/peermaps/docs/blob/master/georender.md
+
+  http URI - serve peermaps content from URI
+
+    URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
+
+    -p --port   - server http on this port
+
 ```
 
 example usage:

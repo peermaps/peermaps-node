@@ -5,12 +5,12 @@ var env = process.env
 var minimist = require('minimist')
 var pump = require('pump')
 var argv = minimist(process.argv.slice(2), {
-  alias: { d: 'datadir', v: 'version', f: 'format', p: 'port' }
+  alias: { d: 'datadir', v: 'version', f: 'format', p: 'port', h: 'help' }
 })
 
 if (argv.help || argv._[0] === 'help') {
   console.log(`
-    usage: ${process.argv[0]} COMMAND ...
+    usage: ${path.basename(process.argv[1])} COMMAND ...
 
       query URI - list all features that intersect BBOX
 
@@ -106,7 +106,6 @@ if (argv.help || argv._[0] === 'help') {
 
   var server = http.createServer(function handler(req, res) {
     if (!isOpen) return openQueue.push(function () { handler(req, res) })
-    console.log(req.method, req.url)
     if (req.method === 'GET') {
       var ct = mime.getType(path.extname(req.url)) || 'application/octet-stream'
       res.setHeader('content-type', ct)
