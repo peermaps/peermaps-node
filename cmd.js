@@ -6,10 +6,10 @@ var minimist = require('minimist')
 var pump = require('pump')
 var argv = minimist(process.argv.slice(2), {
   alias: {
-    v: 'version', h: 'help'
+    v: 'version', h: 'help',
     d: 'datadir', f: 'format', p: 'port', q: 'quiet'
-  }
-  boolean: ['quiet','help','version']
+  },
+  boolean: ['quiet','help','version'],
 })
 
 if (argv.help || argv._[0] === 'help') {
@@ -32,6 +32,7 @@ if (argv.help || argv._[0] === 'help') {
         URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
 
         -p --port   - server http on this port
+        -q --quiet  - do not log http requests to stdout
 
   `.trim().replace(/^ {4}/gm,'') + '\n')
 } else if (argv.version || argv._[0] === 'version') {

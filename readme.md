@@ -23,6 +23,7 @@ usage: peermaps COMMAND ...
     URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
 
     -p --port   - server http on this port
+    -q --quiet  - do not log http requests to stdout
 
 ```
 
