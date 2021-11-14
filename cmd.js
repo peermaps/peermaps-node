@@ -5,7 +5,11 @@ var env = process.env
 var minimist = require('minimist')
 var pump = require('pump')
 var argv = minimist(process.argv.slice(2), {
-  alias: { d: 'datadir', v: 'version', f: 'format', p: 'port', h: 'help' }
+  alias: {
+    v: 'version', h: 'help'
+    d: 'datadir', f: 'format', p: 'port', q: 'quiet'
+  }
+  boolean: ['quiet','help','version']
 })
 
 if (argv.help || argv._[0] === 'help') {
@@ -105,7 +109,9 @@ if (argv.help || argv._[0] === 'help') {
   })
 
   var server = http.createServer(function handler(req, res) {
+    if (!argv.quiet) console.log(req.method, req.url)
     if (!isOpen) return openQueue.push(function () { handler(req, res) })
+    // todo: etag, if-modified-since, and head requests
     if (req.method === 'GET') {
       var ct = mime.getType(path.extname(req.url)) || 'application/octet-stream'
       res.setHeader('content-type', ct)
