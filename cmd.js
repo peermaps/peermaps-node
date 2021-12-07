@@ -104,7 +104,7 @@ if (argv.help || argv._[0] === 'help') {
   })
   swarm.on('connection', function (socket, info) {
     pump(socket, drive.replicate(info.client), socket, function (err) {
-      if (!closed) console.error('error=',err)
+      console.error('pump error',err)
     })
     if (!isOpen) open()
   })
