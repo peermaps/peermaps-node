@@ -103,8 +103,11 @@ if (argv.help || argv._[0] === 'help') {
     swarm.join(drive.discoveryKey)
   })
   swarm.on('connection', function (socket, info) {
+    var peer = `${info.peer.host}:${info.peer.port}`
+    if (!argv.quiet) console.log(`connected to ${peer}`)
     pump(socket, drive.replicate(info.client), socket, function (err) {
-      console.error('pump error',err)
+      if (err) console.error(`pump error on ${peer}`, err)
+      else if (!argv.quiet) console.log(`pump finished on ${peer}`)
     })
     if (!isOpen) open()
   })
