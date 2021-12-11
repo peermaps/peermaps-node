@@ -112,6 +112,12 @@ if (argv.help || argv._[0] === 'help') {
     if (!isOpen) open()
   })
 
+  function error (res, err, code) {
+    res.statusCode = code
+    res.setHeader('content-type', 'text/plain')
+    res.end('error: ' + err)
+  }
+
   var server = http.createServer(function handler(req, res) {
     if (!argv.quiet) console.log(req.method, req.url)
     if (!isOpen) return openQueue.push(function () { handler(req, res) })
@@ -129,24 +135,18 @@ if (argv.help || argv._[0] === 'help') {
       ])
       drive.open(req.url, 'r', function (err, fd) {
         if (err) {
-          res.statusCode = 500
-          res.setHeader('content-type', 'text/plain')
-          res.end('error: ' + err)
+          error(res, err, err.code === 'ENOENT' ? 404 : 500)
           return
         }
         drive.stat(req.url, { wait: true }, function (err, stat) {
           if (err) {
-            res.statusCode = 500
-            res.setHeader('content-type', 'text/plain')
-            res.end('error: ' + err)
+            error(res, err, 500)
             return
           }
           var buf = Buffer.alloc(stat.size)
           drive.read(fd, buf, 0, stat.size, 0, function (err) {
             if (err) {
-              res.statusCode = 500
-              res.setHeader('content-type', 'text/plain')
-              res.end('error: ' + err)
+              error(res, err, 500)
             } else {
               res.end(buf)
             }
@@ -154,9 +154,7 @@ if (argv.help || argv._[0] === 'help') {
         })
       })
     } else {
-      res.statusCode = 404
-      res.setHeader('content-type', 'text/plain')
-      res.end('not found')
+      error(res, 'method not allowed', 405)
     }
   })
   server.listen(argv.port || 8081)
