@@ -1,6 +1,6 @@
 {
   "name": "peermaps",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "peermaps node.js command-line tool",
   "bin": {
     "peermaps": "cmd.js"
