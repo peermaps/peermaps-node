@@ -13,28 +13,7 @@ var argv = minimist(process.argv.slice(2), {
 })
 
 if (argv.help || argv._[0] === 'help') {
-  console.log(`
-    usage: ${path.basename(process.argv[1])} COMMAND ...
-
-      query URI - list all features that intersect BBOX
-
-        URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
-        BBOX is in west,south,east,north form.
-
-        -f FORMAT   - display results in FORMAT: base64 (default), lp
-        --bbox=BBOX - list all features that intersect BBOX
-
-        The rows of output are in georender format:
-        https://github.com/peermaps/docs/blob/master/georender.md
-
-      http URI - serve peermaps content from URI
-
-        URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
-
-        -p --port   - server http on this port
-        -q --quiet  - do not log http requests to stdout
-
-  `.trim().replace(/^ {4}/gm,'') + '\n')
+  usage()
 } else if (argv.version || argv._[0] === 'version') {
   console.log(require('./package.json').version)
 } else if (argv._[0] === 'datadir') {
@@ -158,6 +137,8 @@ if (argv.help || argv._[0] === 'help') {
     }
   })
   server.listen(argv.port || 8081)
+} else {
+  usage()
 }
 
 function getDataDir() {
@@ -165,4 +146,29 @@ function getDataDir() {
   if (env.PEERMAPS_DATADIR) return env.PEERMAPS_DATADIR
   var home = env.XDG_DATA_HOME || env.HOME
   return path.join(home, '.local/share/peermaps')
+}
+
+function usage() {
+  console.log(`
+    usage: ${path.basename(process.argv[1])} COMMAND ...
+
+      query URI - list all features that intersect BBOX
+
+        URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
+        BBOX is in west,south,east,north form.
+
+        -f FORMAT   - display results in FORMAT: base64 (default), lp
+        --bbox=BBOX - list all features that intersect BBOX
+
+        The rows of output are in georender format:
+        https://github.com/peermaps/docs/blob/master/georender.md
+
+      http URI - serve peermaps content from URI
+
+        URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
+
+        -p --port   - server http on this port
+        -q --quiet  - do not log http requests to stdout
+
+  `.trim().replace(/^ {4}/gm,'') + '\n')
 }
