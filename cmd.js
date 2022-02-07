@@ -167,7 +167,7 @@ function usage() {
 
         URI is a hyper://, ipfs://, or https?:// link to the peermaps dataset
 
-        -p --port   - server http on this port
+        -p --port   - serve http on this port. default: 8081
         -q --quiet  - do not log http requests to stdout
 
   `.trim().replace(/^ {4}/gm,'') + '\n')
