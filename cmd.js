@@ -136,7 +136,10 @@ if (argv.help || argv._[0] === 'help') {
       error(res, 'method not allowed', 405)
     }
   })
-  server.listen(argv.port || 8081)
+  var port = argv.port || 8081
+  server.listen(port, function () {
+    if (!argv.quiet) console.log('listening on port ' + port)
+  })
 } else {
   usage()
 }
